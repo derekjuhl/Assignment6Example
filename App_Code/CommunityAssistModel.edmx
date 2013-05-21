@@ -1,0 +1,366 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CommunityAssistModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CommunityAssistModelStoreContainer">
+          <EntitySet Name="Donation" EntityType="CommunityAssistModel.Store.Donation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DonorLogin" EntityType="CommunityAssistModel.Store.DonorLogin" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Person" EntityType="CommunityAssistModel.Store.Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PersonAddress" EntityType="CommunityAssistModel.Store.PersonAddress" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PersonContact" EntityType="CommunityAssistModel.Store.PersonContact" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Service" EntityType="CommunityAssistModel.Store.Service" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Donation__Person__1DE57479" Association="CommunityAssistModel.Store.FK__Donation__Person__1DE57479">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Donation" EntitySet="Donation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonorLogi__Perso__49C3F6B7" Association="CommunityAssistModel.Store.FK__DonorLogi__Perso__49C3F6B7">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="DonorLogin" EntitySet="DonorLogin" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonAdd__Perso__1273C1CD" Association="CommunityAssistModel.Store.FK__PersonAdd__Perso__1273C1CD">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonAddress" EntitySet="PersonAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCon__Perso__173876EA" Association="CommunityAssistModel.Store.FK__PersonCon__Perso__173876EA">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PersonContact" EntitySet="PersonContact" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="DonationKey" />
+          </Key>
+          <Property Name="DonationKey" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DonationDate" Type="datetime" />
+          <Property Name="DonationAmount" Type="money" />
+          <Property Name="PersonKey" Type="int" />
+          <Property Name="EmployeeKey" Type="int" />
+        </EntityType>
+        <EntityType Name="DonorLogin">
+          <Key>
+            <PropertyRef Name="loginId" />
+          </Key>
+          <Property Name="loginId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonKey" Type="int" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+          <Property Name="DonorPassword" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+          </Key>
+          <Property Name="PersonKey" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PersonAddress">
+          <Key>
+            <PropertyRef Name="PersonAddressKey" />
+          </Key>
+          <Property Name="PersonAddressKey" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="nvarchar" MaxLength="255" />
+          <Property Name="Apartment" Type="nvarchar" MaxLength="255" />
+          <Property Name="State" Type="nvarchar" MaxLength="2" />
+          <Property Name="City" Type="nvarchar" MaxLength="255" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="10" />
+          <Property Name="PersonKey" Type="int" />
+        </EntityType>
+        <EntityType Name="PersonContact">
+          <Key>
+            <PropertyRef Name="ContactKey" />
+          </Key>
+          <Property Name="ContactKey" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ContactInfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="PersonKey" Type="int" />
+          <Property Name="ContactTypeKey" Type="int" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceKey" />
+          </Key>
+          <Property Name="ServiceKey" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ServiceDescription" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Donation__Person__1DE57479">
+          <End Role="Person" Type="CommunityAssistModel.Store.Person" Multiplicity="0..1" />
+          <End Role="Donation" Type="CommunityAssistModel.Store.Donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="Donation">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonorLogi__Perso__49C3F6B7">
+          <End Role="Person" Type="CommunityAssistModel.Store.Person" Multiplicity="0..1" />
+          <End Role="DonorLogin" Type="CommunityAssistModel.Store.DonorLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="DonorLogin">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonAdd__Perso__1273C1CD">
+          <End Role="Person" Type="CommunityAssistModel.Store.Person" Multiplicity="0..1" />
+          <End Role="PersonAddress" Type="CommunityAssistModel.Store.PersonAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="PersonAddress">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCon__Perso__173876EA">
+          <End Role="Person" Type="CommunityAssistModel.Store.Person" Multiplicity="0..1" />
+          <End Role="PersonContact" Type="CommunityAssistModel.Store.PersonContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="PersonContact">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommunityAssistModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CommunityAssistEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Donations" EntityType="CommunityAssistModel.Donation" />
+          <EntitySet Name="DonorLogins" EntityType="CommunityAssistModel.DonorLogin" />
+          <EntitySet Name="People" EntityType="CommunityAssistModel.Person" />
+          <EntitySet Name="PersonAddresses" EntityType="CommunityAssistModel.PersonAddress" />
+          <EntitySet Name="PersonContacts" EntityType="CommunityAssistModel.PersonContact" />
+          <AssociationSet Name="FK__Donation__Person__1DE57479" Association="CommunityAssistModel.FK__Donation__Person__1DE57479">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Donation" EntitySet="Donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DonorLogi__Perso__49C3F6B7" Association="CommunityAssistModel.FK__DonorLogi__Perso__49C3F6B7">
+            <End Role="Person" EntitySet="People" />
+            <End Role="DonorLogin" EntitySet="DonorLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonAdd__Perso__1273C1CD" Association="CommunityAssistModel.FK__PersonAdd__Perso__1273C1CD">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonAddress" EntitySet="PersonAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCon__Perso__173876EA" Association="CommunityAssistModel.FK__PersonCon__Perso__173876EA">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PersonContact" EntitySet="PersonContacts" />
+          </AssociationSet>
+          <EntitySet Name="Services" EntityType="CommunityAssistModel.Service" />
+        </EntityContainer>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="DonationKey" />
+          </Key>
+          <Property Name="DonationKey" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="DonationDate" Type="DateTime" Precision="3" />
+          <Property Name="DonationAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PersonKey" Type="Int32" />
+          <Property Name="EmployeeKey" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="CommunityAssistModel.FK__Donation__Person__1DE57479" FromRole="Donation" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="DonorLogin">
+          <Key>
+            <PropertyRef Name="loginId" />
+          </Key>
+          <Property Name="loginId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonKey" Type="Int32" />
+          <Property Name="LastName" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="DonorPassword" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Person" Relationship="CommunityAssistModel.FK__DonorLogi__Perso__49C3F6B7" FromRole="DonorLogin" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+          </Key>
+          <Property Name="PersonKey" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Donations" Relationship="CommunityAssistModel.FK__Donation__Person__1DE57479" FromRole="Person" ToRole="Donation" />
+          <NavigationProperty Name="DonorLogins" Relationship="CommunityAssistModel.FK__DonorLogi__Perso__49C3F6B7" FromRole="Person" ToRole="DonorLogin" />
+          <NavigationProperty Name="PersonAddresses" Relationship="CommunityAssistModel.FK__PersonAdd__Perso__1273C1CD" FromRole="Person" ToRole="PersonAddress" />
+          <NavigationProperty Name="PersonContacts" Relationship="CommunityAssistModel.FK__PersonCon__Perso__173876EA" FromRole="Person" ToRole="PersonContact" />
+        </EntityType>
+        <EntityType Name="PersonAddress">
+          <Key>
+            <PropertyRef Name="PersonAddressKey" />
+          </Key>
+          <Property Name="PersonAddressKey" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Apartment" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="2" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="PersonKey" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="CommunityAssistModel.FK__PersonAdd__Perso__1273C1CD" FromRole="PersonAddress" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="PersonContact">
+          <Key>
+            <PropertyRef Name="ContactKey" />
+          </Key>
+          <Property Name="ContactKey" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactInfo" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="PersonKey" Type="Int32" />
+          <Property Name="ContactTypeKey" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="CommunityAssistModel.FK__PersonCon__Perso__173876EA" FromRole="PersonContact" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK__Donation__Person__1DE57479">
+          <End Role="Person" Type="CommunityAssistModel.Person" Multiplicity="0..1" />
+          <End Role="Donation" Type="CommunityAssistModel.Donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="Donation">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DonorLogi__Perso__49C3F6B7">
+          <End Role="Person" Type="CommunityAssistModel.Person" Multiplicity="0..1" />
+          <End Role="DonorLogin" Type="CommunityAssistModel.DonorLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="DonorLogin">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonAdd__Perso__1273C1CD">
+          <End Role="Person" Type="CommunityAssistModel.Person" Multiplicity="0..1" />
+          <End Role="PersonAddress" Type="CommunityAssistModel.PersonAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="PersonAddress">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCon__Perso__173876EA">
+          <End Role="Person" Type="CommunityAssistModel.Person" Multiplicity="0..1" />
+          <End Role="PersonContact" Type="CommunityAssistModel.PersonContact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="PersonContact">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="ServiceKey" />
+          </Key>
+          <Property Type="Int32" Name="ServiceKey" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ServiceName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ServiceDescription" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CommunityAssistModelStoreContainer" CdmEntityContainer="CommunityAssistEntities">
+          <EntitySetMapping Name="Donations">
+            <EntityTypeMapping TypeName="CommunityAssistModel.Donation">
+              <MappingFragment StoreEntitySet="Donation">
+                <ScalarProperty Name="DonationKey" ColumnName="DonationKey" />
+                <ScalarProperty Name="DonationDate" ColumnName="DonationDate" />
+                <ScalarProperty Name="DonationAmount" ColumnName="DonationAmount" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="EmployeeKey" ColumnName="EmployeeKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonorLogins">
+            <EntityTypeMapping TypeName="CommunityAssistModel.DonorLogin">
+              <MappingFragment StoreEntitySet="DonorLogin">
+                <ScalarProperty Name="loginId" ColumnName="loginId" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DonorPassword" ColumnName="DonorPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="CommunityAssistModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonAddresses">
+            <EntityTypeMapping TypeName="CommunityAssistModel.PersonAddress">
+              <MappingFragment StoreEntitySet="PersonAddress">
+                <ScalarProperty Name="PersonAddressKey" ColumnName="PersonAddressKey" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Apartment" ColumnName="Apartment" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonContacts">
+            <EntityTypeMapping TypeName="CommunityAssistModel.PersonContact">
+              <MappingFragment StoreEntitySet="PersonContact">
+                <ScalarProperty Name="ContactKey" ColumnName="ContactKey" />
+                <ScalarProperty Name="ContactInfo" ColumnName="ContactInfo" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="ContactTypeKey" ColumnName="ContactTypeKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="CommunityAssistModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="ServiceDescription" ColumnName="ServiceDescription" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceKey" ColumnName="ServiceKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
